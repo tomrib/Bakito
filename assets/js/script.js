@@ -20,13 +20,6 @@ loginWord.addEventListener('input', () =>{
     navLogin.classList.add('login')
 })
 
-const passWod = document.getElementById('passWord');
-const textPassWord = document.getElementById('textPassWord');
-password.addEventListener('input', () =>{
-    textPassWord.classList.remove('noBoxPass')
-    textPassWord.classList.add('boxPass')
-})
-
 password.addEventListener('input', () => {
 
     let score = 0;

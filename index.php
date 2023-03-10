@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once('views/includes/nav.php');
 ?>
 <!--container contien tout la presentation 
@@ -18,7 +19,6 @@ include_once('views/includes/nav.php');
                 avec leurs accessoires et figurines que les fans s'arrachent et collectionnent.
             </p>
         </div>
-
         <div class="houes deco">
             <div>
                 <h2 class="accusedTitle">Les Hauraires</h2>
@@ -32,7 +32,6 @@ include_once('views/includes/nav.php');
             <p>dimenche : Ferme</p>
         </div>
     </div>
-
     <div class="deco new">
         <h2 class="accusedTitle">Les Nouveautés</h2>
         <div class="book">

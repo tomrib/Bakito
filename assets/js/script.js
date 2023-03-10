@@ -1,40 +1,44 @@
-let passwordRegex = []
-passwordRegex['lower'] = /[a-z]/;
-passwordRegex['upper'] = /[A-Z]/;
-passwordRegex['number'] = /[0-9]/;
-passwordRegex['special'] = /[$&+,:;=?@#|\'<>\.\-^*()%!"\{\]\{\}]/;
-passwordRegex['stringLength'] = /^(.){8,}$/;
-//length et un mot reserve
-let conditions = [
-    'lower',
-    'upper',
-    'number',
-    'special',
-    'stringLength'
-]
-
-const loginWord = document.getElementById('loginWord');
-const navLogin = document.getElementById('navLogin');
-loginWord.addEventListener('input', () =>{
-    navLogin.classList.remove('noLogin')
-    navLogin.classList.add('login')
-})
-
-password.addEventListener('input', () => {
-
+let passwordRegex = {
+    lower: /[a-z]/,
+    upper: /[A-Z]/,
+    number: /[0-9]/,
+    special: /[$&+,:;=?@#|'<>.^*()%!"{}[\]-]/,
+    stringLength: /(.){8,}/
+  };
+  
+  let conditions = ["lower", "upper", "number", "special","stringLength"];
+  let passwordInput = document.getElementById("formPassword");
+  let loginWord = document.getElementById("textPassWord");
+  let scoreText = document.getElementById("passwordScore");
+  
+  passwordInput.addEventListener("input", () => {
     let score = 0;
+  
     for (let c of conditions) {
-        let li = document.getElementById(c);
-        if (passwordRegex[c].test(password.value)) {
-            li.style.color = 'green';
-            li.children[0].innerHTML = '<span class="material-symbols-outlined">thumb_up</span>';
-            li.children[1].innerHTML = '';
-            score += 1;
-        } else {
-            li.style.color = 'red';
-            li.children[1].innerHTML = '<span class="material-symbols-outlined">sentiment_dissatisfied</span>';
-            li.children[0].innerHTML = '';
-            score -= 1;
-        }
+      let li = document.getElementById(c);
+  
+      if (passwordRegex[c].test(passwordInput.value)) {
+        li.style.color = "#F18F01";
+        li.children[0].innerHTML = '<span class="material-symbols-outlined">mood</span>';
+        li.children[1].innerHTML = "";
+        score += 1;
+      } else {
+        li.style.color = "red";
+        li.children[1].innerHTML = '<span class="material-symbols-outlined">sentiment_very_dissatisfied</span>';
+        li.children[0].innerHTML = "";
+      }
     }
-});
+  
+    if (passwordInput.value.length < 8) {
+      scoreText.innerHTML = "Password too short";
+    } else if (score === conditions.length) {
+      scoreText.innerHTML = "Strong password";
+    } else {
+      scoreText.innerHTML = "Weak password";
+    }
+  });
+  
+  passwordInput.addEventListener("focus", () => {
+    loginWord.classList.remove("noBoxPass");
+    loginWord.classList.add("boxPass");
+  });

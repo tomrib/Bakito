@@ -1,3 +1,4 @@
+<?php var_dump($_SESSION); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -13,19 +14,35 @@
     <nav class="navBar">
         <!--dans la div delivered sa contien les livre les cat&égorie mis a gauche de la nav-->
         <div class="delivered">
-            <button>Manga</button>
+            <a href="/manga"><button>Manga</button></a>
             <button>Catégorie </button>
             <button>Nouveautés</button>
         </div>
-        <!--Logo sera au centre de la navbar
-        <div class="logo">
-            <a href="index.php"><img src="assets/images/logo.png" alt="logo de l'entrepris"></a>
-        </div>-->
-        <!--dans la div connect se pour fair un compt ou se connecte sur profil -->
+        <form action="/manga" method="GET" name="research">
+            <input type="search" name="keyword" placeholder="Recherche...">
+            <button name="valid">Valide</button>
+        </form>
         <div class="connect">
-            <a href="/inscription"><button>Inscription</button></a>
-            <a href="/connexion"><button>Connexion</button></a>
+            <?php if (isset($_SESSION['user'])) {?>
+                <?php if (isset($_SESSION['user']['id_useradmin']) === 2) {?>
+                    <a href="/ajout"><button>Ajoute un livre</button></a>
+                    <?php } ?>
+                    <a href="/Deconnexion"><button>Déconnexion</button></a>
+                    <a href="/Profil"><button>Profil</button></a>
+            <?php } else { ?>
+                <a href="/inscription"><button>Inscription</button></a>
+                <button id="boxuser">Connexion</button>
+            <?php } ?>
         </div>
     </nav>
 
-    <h1>BAKITO</h1>
+    <main id="loginContainer" class="norowuser">
+        <div id="formErrorsEmail"></div>
+            <label for="loginEmail">Adresse email</label>
+            <input type="email" name="loginEmail" id="loginEmail" placeholder="pauldupont@gmal.com" class="<?= isset($formErrors['email']) ? 'inputError' : '' ?>">
+            <label for="loginPassword">mot de passe</label>
+            <input type="password" name="loginPassword" id="loginPassword" placeholder="**************" class="<?= isset($formErrors['loginPassword']) ? 'inputError' : '' ?>">
+            <button type="submit" id="login">Connexion</button>
+    </main>
+    
+        <h1><a href="/accueil" class="acceuil">BAKITO </a></h1>
